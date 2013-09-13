@@ -3,11 +3,14 @@ var gameGrid = (function () {
     var canvas;
     var grid = [];
 
+    // public methods
+    // --------------------------------------------------------------
+
     this.init = function (width, height, elementId) {
         this.setDimensions(width, height);
         this.setCanvasId(elementId);
 
-        this.grid = new Array();
+        this.grid = initGrid(this.width, this.height);
     }
 
     this.setDimensions = function(width, height) {
@@ -19,31 +22,49 @@ var gameGrid = (function () {
         this.canvas = elementId;
     };
 
-    var initGrid = function() {
-        this.grid = [];
-
-        // check if the dimensions are set
-        if (this.width && this.height) {
-            // create array of arrays (width * height) and fill with zeroes
-            for (var i = 0; i < this.height; i++) {
-                this.grid[i] = [];
-                for (var j = 0; j < this.width; j++) {
-                    this.grid[i][j] = 0;
-                }
-            }
+    this.getPiece = function(x, y) {
+        if (pieceExists(x, y)) {
+            return this.grid[x][y];
         }
     }
 
-    this.draw = function() {
-        // check the element is in the DOM and the browser supports canvas
-        if (this.canvas.getContext) {
-
-            // initialise a 2-dimensional drawing context
-            var context = this.canvas.getContext('2d');
-
-            // canvas commands go here
+    this.setPiece = function(x, y, val) {
+        if (pieceExists(x, y)) {
+            this.grid[x][y] = val;
+            return true;
         }
-    };
+        return false;
+    }
+
+    this.switchPiece = function (x, y) {
+        if (pieceExists(x, y)) {
+            this.grid[x][y] = 1 - this.grid[x][y];
+        }
+    }
+
+    // private methods
+    // --------------------------------------------------------------
+
+    var pieceExists = function(x, y) {
+        return (y < this.grid.length && x < this.grid[y].length)
+    }
+
+    var initGrid = function(width, height) {
+        var grid = [];
+
+        // check if the dimensions are set
+        if (width && height) {
+            // create array of arrays (width * height) and fill with zeroes
+            for (var i = 0; i < height; i++) {
+                grid[i] = [];
+                for (var j = 0; j < width; j++) {
+                    grid[i][j] = 0;
+                }
+            }
+        }
+
+        return grid;
+    }
 
     return this;
 }());
