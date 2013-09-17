@@ -1,4 +1,8 @@
-gameGrid.init(10, 10, "demoCanvas");
+gameGrid.init(10, 10);
+// add players
+gameGrid.addPlayer('Batman');
+gameGrid.addPlayer('Robin');
+
 // set some black pieces
 gameGrid.setPiece(1, 0, 1);
 gameGrid.setPiece(2, 3, 1);
@@ -27,3 +31,15 @@ gameGrid.setPiece(4, 8, 2);
 gameGrid.setPiece(7, 1, 2);
 
 gameGrid.renderer.draw("demoCanvas");
+
+// write player names
+var container = document.getElementById("playerNames");
+var players = gameGrid.getPlayers();
+
+var htmlString = "<ol>";
+for (var i = 0; i < players.length; i++) {
+    htmlString += "<li>" + players[i].toString() + "</li>";
+}
+htmlString += "</ol>";
+
+container.innerHTML = htmlString;

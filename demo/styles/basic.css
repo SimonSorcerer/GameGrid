@@ -1,3 +1,24 @@
+body {
+    font-family: "Palatino Linotype", Palatino, serif;
+    font-size: 10pt;
+    font-weight: bold;
+}
+
+.gameInfo {
+    width: 200px;
+    float: left;
+}
+
+.game {
+    float: left;
+}
+
 canvas {
     border: 0;
+    float: left;
+}
+
+ol {
+    margin: 1em 0.4em;
+    margin-top: 0.2em;
 }

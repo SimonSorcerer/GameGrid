@@ -7,9 +7,8 @@ var gameGrid = (function () {
     // public methods
     // --------------------------------------------------------------
 
-    this.init = function (width, height, elementId) {
+    this.init = function (width, height) {
         this.setDimensions(width, height);
-        this.setCanvasId(elementId);
 
         grid = initGrid(width, height);
     }
@@ -26,9 +25,9 @@ var gameGrid = (function () {
         }
     }
 
-    this.setCanvasId = function(elementId) {
-        canvas = elementId;
-    };
+    this.getPlayers = function () {
+        return players;
+    }
 
     this.getPiece = function(x, y) {
         if (pieceExists(x, y)) {
@@ -55,7 +54,7 @@ var gameGrid = (function () {
     }
 
     this.addPlayer = function(playerName) {
-        players.push(playerName || 'anonymous');
+        players.push(playerName || 'Anonymous');
     }
 
     // private methods
