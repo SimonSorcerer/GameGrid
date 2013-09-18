@@ -1,8 +1,8 @@
 var gameGrid = (function () {
     var width, height;
-    var canvas;
     var grid = [];
     var players = [];
+    var activePlayer;
 
     // public methods
     // --------------------------------------------------------------
@@ -55,6 +55,10 @@ var gameGrid = (function () {
 
     this.addPlayer = function(playerName) {
         players.push(playerName || 'Anonymous');
+
+        if (players.length === 1) {
+            setActivePlayer(0);
+        }
     }
 
     // private methods
@@ -66,6 +70,12 @@ var gameGrid = (function () {
 
     var playerExists = function(playerNumber) {
         return players.length > playerNumber;
+    }
+
+    var setActivePlayer = function(index) {
+        if (players.length > index) {
+            activePlayer = index;
+        }
     }
 
     var initGrid = function(width, height) {
