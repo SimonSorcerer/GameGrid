@@ -30,7 +30,7 @@ gameGrid.setPiece(4, 2, 2);
 gameGrid.setPiece(4, 8, 2);
 gameGrid.setPiece(7, 1, 2);
 
-gameGrid.renderer.draw("demoCanvas");
+gameGrid.renderer.canvasInit("demoCanvas");
 
 // write player names
 var container = document.getElementById("playerNames");

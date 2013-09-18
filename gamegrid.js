@@ -29,6 +29,10 @@ var gameGrid = (function () {
         return players;
     }
 
+    this.getActivePlayer = function() {
+        return players[activePlayer];
+    }
+
     this.getPiece = function(x, y) {
         if (pieceExists(x, y)) {
             return grid[x][y];
@@ -36,6 +40,9 @@ var gameGrid = (function () {
     }
 
     this.setPiece = function(x, y, val) {
+        // default owner of this piece is active player
+        val = val || activePlayer;
+
         if (pieceExists(x, y)) {
             grid[x][y] = val;
 
@@ -57,6 +64,13 @@ var gameGrid = (function () {
         players.push(playerName || 'Anonymous');
 
         if (players.length === 1) {
+            setActivePlayer(0);
+        }
+    }
+
+    this.nextPlayer = function() {
+        activePlayer++;
+        if (!playerExists(activePlayer)) {
             setActivePlayer(0);
         }
     }

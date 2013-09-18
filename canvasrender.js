@@ -1,7 +1,13 @@
 gameGrid.renderer = (function (){
-    this.draw = function(canvasId, grid) {
-        var canvas = document.getElementById(canvasId);
-        var fieldSize = 30;
+    var canvas;
+    var fieldSize = 30;
+
+    this.canvasInit = function(canvasId) {
+        canvas = document.getElementById(canvasId);
+        draw();
+    }
+
+    var draw = function() {
         var grid = gameGrid.getGrid();
         var dimensions = gameGrid.getDimensions();
 
@@ -11,6 +17,8 @@ gameGrid.renderer = (function (){
             var context = canvas.getContext('2d');
 
             setCanvasSize(canvas, dimensions.width, dimensions.height, fieldSize);
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
             drawGrid(context, dimensions.width, dimensions.height, fieldSize);
 
             for(var i = 0; i < grid.length; i++) {
@@ -20,8 +28,48 @@ gameGrid.renderer = (function (){
                     }
                 }
             }
+
+            // add click listener event
+            canvas.addEventListener('click', pieceClick, false);
         }
     };
+
+    var pieceClick = function(e) {
+        var pieceCoords = getPieceCoordinates(getCursorPosition(e));
+
+        gameGrid.setPiece(pieceCoords.x, pieceCoords.y);
+        gameGrid.nextPlayer();
+
+        // redraw
+        draw();
+    }
+
+    var getCursorPosition = function(e) {
+        var x, y;
+
+        if (e.pageX != undefined && e.pageY != undefined) {
+            x = e.pageX;
+            y = e.pageY;
+        }
+        else { // firefox method to get position
+            x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+            y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+        }
+        x -= canvas.offsetLeft;
+        y -= canvas.offsetTop;
+
+        return {
+            x: x,
+            y: y
+        };
+    }
+
+    var getPieceCoordinates = function(cursorCoords) {
+        return {
+            x: Math.floor(cursorCoords.x / fieldSize),
+            y: Math.floor(cursorCoords.y / fieldSize)
+        }
+    }
 
     var drawPiece = function(context, x, y, size, player) {
         var dx = (x * size) + (size/2);

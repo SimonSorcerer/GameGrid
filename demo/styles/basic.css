@@ -16,6 +16,7 @@ body {
 canvas {
     border: 0;
     float: left;
+    cursor: pointer;
 }
 
 ol {
