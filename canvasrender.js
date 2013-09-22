@@ -41,13 +41,13 @@ gameGrid.renderer = (function (){
 
         if (!gameGrid.isEndGame()) {
             gameGrid.nextPlayer();
-
-            // redraw
-            draw();
         }
         else {
             console.log("EndGame!");
         }
+
+        // redraw
+        draw();
     }
 
     var getCursorPosition = function(e) {

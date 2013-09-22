@@ -1,23 +1,10 @@
-gameGrid.init(10, 10);
-// add players
-gameGrid.addPlayer('Batman');
-gameGrid.addPlayer('Robin');
-
-gameGrid.renderer.canvasInit("demoCanvas");
-gameGrid.tictactoe.gameInit(5);
-
 gameGrid.tictactoe = (function () {
 
     // public methods
-    this.gameInit = function(winCount) {
-        gameGrid.isEndGame = function() {
-            return gameGrid.tictactoe.isEndGame(gameGrid.getGrid(), winCount);
-        }
-    }
-
-
-    this.ísEndGame = function (grid, winCount) {
+    this.isEndGame = function () {
         var dimensions = gameGrid.getDimensions();
+        var grid = gameGrid.getGrid();
+        var winCount = 3;
 
         // check if the dimensions are set
         if (dimensions.width && dimensions.height) {
@@ -36,6 +23,10 @@ gameGrid.tictactoe = (function () {
 
     // private methods
     var checkPieceForWin = function(grid, x, y, winCount) {
+        if (gameGrid.pieceIsEmpty(x, y)) {
+            return false;
+        }
+
         return checkPieceForWinPartial(grid, x, y, -1, 0, winCount) ||
             checkPieceForWinPartial(grid, x, y, 1, 0, winCount) ||
             checkPieceForWinPartial(grid, x, y, 0, -1, winCount) ||

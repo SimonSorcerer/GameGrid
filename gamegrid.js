@@ -39,6 +39,10 @@ var gameGrid = (function () {
         }
     }
 
+    this.pieceIsEmpty = function(x, y) {
+        return (gameGrid.getPiece(x, y) < 0);
+    }
+
     this.setPiece = function(x, y, val) {
         // default owner of this piece is active player
         val = val || activePlayer;
@@ -83,7 +87,7 @@ var gameGrid = (function () {
     // --------------------------------------------------------------
 
     var pieceExists = function(x, y) {
-        return (y < grid.length && x < grid[y].length)
+        return (y >= 0 && y < grid.length && x >=0 && x < grid[y].length)
     }
 
     var playerExists = function(playerNumber) {
