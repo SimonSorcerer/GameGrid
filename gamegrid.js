@@ -75,6 +75,10 @@ var gameGrid = (function () {
         }
     }
 
+    this.isEndGame = function() {
+        return false;
+    }
+
     // private methods
     // --------------------------------------------------------------
 

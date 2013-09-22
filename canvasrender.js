@@ -38,10 +38,16 @@ gameGrid.renderer = (function (){
         var pieceCoords = getPieceCoordinates(getCursorPosition(e));
 
         gameGrid.setPiece(pieceCoords.x, pieceCoords.y);
-        gameGrid.nextPlayer();
 
-        // redraw
-        draw();
+        if (!gameGrid.isEndGame()) {
+            gameGrid.nextPlayer();
+
+            // redraw
+            draw();
+        }
+        else {
+            console.log("EndGame!");
+        }
     }
 
     var getCursorPosition = function(e) {
