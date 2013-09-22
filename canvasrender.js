@@ -1,6 +1,6 @@
 gameGrid.renderer = (function (){
     var canvas;
-    var fieldSize = 30;
+    var fieldSize = 50;
 
     this.canvasInit = function(canvasId) {
         canvas = document.getElementById(canvasId);
@@ -23,16 +23,30 @@ gameGrid.renderer = (function (){
 
             for(var i = 0; i < grid.length; i++) {
                 for (var j = 0; j < grid[i].length; j++) {
-                    if (grid[i][j] >= 0) {
-                        drawPiece(context, i, j, fieldSize, grid[i][j]);
+                    if (gameGrid.pieceIsHighlighted(i, j)) {
+                        drawHover(context, i, j, fieldSize);
+                    }
+
+                    if (!gameGrid.pieceIsEmpty(i, j)) {
+                        drawPiece(context, i, j, fieldSize, grid[i][j].value);
                     }
                 }
             }
 
             // add click listener event
             canvas.addEventListener('click', pieceClick, false);
+            canvas.addEventListener('mousemove', pieceHover, false);
         }
     };
+
+    var pieceHover = function(e) {
+        var pieceCoords = getPieceCoordinates(getCursorPosition(e));
+
+        gameGrid.unhilightAll();
+        gameGrid.highlightPiece(pieceCoords.x, pieceCoords.y);
+
+        draw();
+    }
 
     var pieceClick = function(e) {
         var pieceCoords = getPieceCoordinates(getCursorPosition(e));
@@ -91,6 +105,15 @@ gameGrid.renderer = (function (){
         context.stroke();
 
         context.fillStyle = getPlayerColor(player);
+        context.fill();
+    }
+
+    var drawHover = function(context, x, y, fieldSize) {
+        context.beginPath();
+        context.rect(x * fieldSize + 0.5, y * fieldSize + 0.5, fieldSize, fieldSize);
+        context.closePath();
+
+        context.fillStyle = "#dae6bc";
         context.fill();
     }
 

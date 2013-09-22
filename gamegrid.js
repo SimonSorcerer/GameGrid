@@ -40,7 +40,27 @@ var gameGrid = (function () {
     }
 
     this.pieceIsEmpty = function(x, y) {
-        return (gameGrid.getPiece(x, y) < 0);
+        return (gameGrid.getPiece(x, y).value < 0);
+    }
+
+    this.highlightPiece = function(x, y) {
+        if (pieceExists(x, y)) {
+            grid[x][y].hover = true;
+        }
+    }
+
+    this.pieceIsHighlighted = function(x, y) {
+        if (pieceExists(x, y)) {
+            return (grid[x][y].hover);
+        }
+    }
+
+    this.unhilightAll = function() {
+        for (var i = 0; i < height; i++) {
+            for (var j = 0; j < width; j++) {
+                grid[i][j].hover = false;
+            }
+        }
     }
 
     this.setPiece = function(x, y, val) {
@@ -48,7 +68,7 @@ var gameGrid = (function () {
         val = val || activePlayer;
 
         if (pieceExists(x, y)) {
-            grid[x][y] = val;
+            grid[x][y].value = val;
 
             // if player for this piece doesn't exist, create it (and all players up to number val)
             while (!playerExists(val)) {
@@ -109,7 +129,7 @@ var gameGrid = (function () {
             for (var i = 0; i < height; i++) {
                 grid[i] = [];
                 for (var j = 0; j < width; j++) {
-                    grid[i][j] = -1;
+                    grid[i][j] = { value: -1 };
                 }
             }
         }

@@ -39,10 +39,12 @@ gameGrid.tictactoe = (function () {
 
 
     var checkPieceForWinPartial = function(grid, x, y, dx, dy, winCount) {
-        var value = gameGrid.getPiece(x, y);
+        var value = gameGrid.getPiece(x, y).value;
+        var piece;
 
         for (var i = 0; i < winCount; i++) {
-            if (gameGrid.getPiece(x + (i * dx), y + (i * dy)) != value) {
+            piece = gameGrid.getPiece(x + (i * dx), y + (i * dy));
+            if (!piece || piece.value != value) {
                 break;
             }
         }
