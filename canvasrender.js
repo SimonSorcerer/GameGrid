@@ -1,16 +1,8 @@
 gameGrid.renderer = (function (){
     var canvas;
-    var fieldSize = 40;
+    var fieldSize;
 
-    this.canvasInit = function(canvasId) {
-        canvas = document.getElementById(canvasId);
-        draw();
-
-        // add listener events
-        canvas.addEventListener('click', pieceClick, false);
-        canvas.addEventListener('mousemove', pieceHover, false);
-    }
-
+    // private methods
     var draw = function() {
         var grid = gameGrid.getGrid();
         var dimensions = gameGrid.getDimensions();
@@ -164,5 +156,17 @@ gameGrid.renderer = (function (){
         context.stroke();
     };
 
-    return this;
+    // public methods
+    return {
+        canvasInit: function(canvasId, pixelSize) {
+            canvas = document.getElementById(canvasId);
+            fieldSize = pixelSize;
+
+            draw();
+
+            // add listener events
+            canvas.addEventListener('click', pieceClick, false);
+            canvas.addEventListener('mousemove', pieceHover, false);
+        }
+    }
 }());

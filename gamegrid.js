@@ -4,122 +4,7 @@ var gameGrid = (function () {
     var players = [];
     var activePlayer;
 
-    // public methods
-    // --------------------------------------------------------------
-
-    this.init = function (width, height) {
-        this.setDimensions(width, height);
-
-        grid = initGrid(width, height);
-    }
-
-    this.setDimensions = function(w, h) {
-        width = w;
-        height = h;
-    };
-
-    this.getDimensions = function() {
-        return {
-            width: width,
-            height: height
-        }
-    }
-
-    this.getPlayers = function () {
-        return players;
-    }
-
-    this.getActivePlayer = function() {
-        return players[activePlayer];
-    }
-
-    this.getPiece = function(x, y) {
-        if (pieceExists(x, y)) {
-            return grid[x][y];
-        }
-    }
-
-    this.pieceIsEmpty = function(x, y) {
-        return (gameGrid.getPiece(x, y).value < 0);
-    }
-
-    this.hoverPiece = function(x, y) {
-        if (pieceExists(x, y)) {
-            grid[x][y].hover = true;
-        }
-    }
-
-    this.pieceIsHovered = function(x, y) {
-        if (pieceExists(x, y)) {
-            return (grid[x][y].hover);
-        }
-    }
-
-    this.unhoverAll = function() {
-        for (var i = 0; i < height; i++) {
-            for (var j = 0; j < width; j++) {
-                grid[i][j].hover = false;
-            }
-        }
-    }
-
-    this.highlightWin = function(x, y, dx, dy, count) {
-        for (var i = 0; i < count; i++) {
-            if (pieceExists(x + dx * i, y + dy * i)) {
-                grid[x + dx * i][y + dy * i].win = true;
-            }
-        }
-    }
-
-    this.pieceIsWinMove = function(x, y) {
-        if (pieceExists(x, y)) {
-            return (grid[x][y].win);
-        }
-    }
-
-    this.setPiece = function(x, y, val) {
-        // default owner of this piece is active player
-        val = val || activePlayer;
-
-        if (pieceExists(x, y)) {
-            grid[x][y].value = val;
-
-            // if player for this piece doesn't exist, create it (and all players up to number val)
-            while (!playerExists(val)) {
-                this.addPlayer();
-            }
-
-            return true;
-        }
-        return false;
-    }
-
-    this.getGrid = function() {
-        return grid;
-    }
-
-    this.addPlayer = function(playerName) {
-        players.push(playerName || 'Anonymous');
-
-        if (players.length === 1) {
-            setActivePlayer(0);
-        }
-    }
-
-    this.nextPlayer = function() {
-        activePlayer++;
-        if (!playerExists(activePlayer)) {
-            setActivePlayer(0);
-        }
-    }
-
-    this.isEndGame = function() {
-        return false;
-    }
-
     // private methods
-    // --------------------------------------------------------------
-
     var pieceExists = function(x, y) {
         return (y >= 0 && y < grid.length && x >=0 && x < grid[y].length)
     }
@@ -151,5 +36,116 @@ var gameGrid = (function () {
         return grid;
     }
 
-    return this;
+    // public methods
+    return {
+        init: function (width, height) {
+            this.setDimensions(width, height);
+
+            grid = initGrid(width, height);
+        },
+
+        setDimensions: function(w, h) {
+            width = w;
+            height = h;
+        },
+
+        getDimensions: function() {
+            return {
+                width: width,
+                height: height
+            }
+        },
+
+        getPlayers: function () {
+            return players;
+        },
+
+        getActivePlayer: function() {
+            return players[activePlayer];
+        },
+
+        getPiece: function(x, y) {
+            if (pieceExists(x, y)) {
+                return grid[x][y];
+            }
+        },
+
+        pieceIsEmpty: function(x, y) {
+            return (gameGrid.getPiece(x, y).value < 0);
+        },
+
+        hoverPiece: function(x, y) {
+            if (pieceExists(x, y)) {
+                grid[x][y].hover = true;
+            }
+        },
+
+        pieceIsHovered: function(x, y) {
+            if (pieceExists(x, y)) {
+                return (grid[x][y].hover);
+            }
+        },
+
+        unhoverAll: function() {
+            for (var i = 0; i < height; i++) {
+                for (var j = 0; j < width; j++) {
+                    grid[i][j].hover = false;
+                }
+            }
+        },
+
+        highlightWin: function(x, y, dx, dy, count) {
+            for (var i = 0; i < count; i++) {
+                if (pieceExists(x + dx * i, y + dy * i)) {
+                    grid[x + dx * i][y + dy * i].win = true;
+                }
+            }
+        },
+
+        pieceIsWinMove: function(x, y) {
+            if (pieceExists(x, y)) {
+                return (grid[x][y].win);
+            }
+        },
+
+        setPiece: function(x, y, val) {
+            // default owner of this piece is active player
+            val = val || activePlayer;
+
+            if (pieceExists(x, y)) {
+                grid[x][y].value = val;
+
+                // if player for this piece doesn't exist, create it (and all players up to number val)
+                while (!playerExists(val)) {
+                    this.addPlayer();
+                }
+
+                return true;
+            }
+            return false;
+        },
+
+        getGrid: function() {
+            return grid;
+        },
+
+        addPlayer: function(playerName) {
+            players.push(playerName || 'Anonymous');
+
+            if (players.length === 1) {
+                setActivePlayer(0);
+            }
+        },
+
+        nextPlayer: function() {
+            activePlayer++;
+            if (!playerExists(activePlayer)) {
+                setActivePlayer(0);
+            }
+        },
+
+        isEndGame: function() {
+            return false;
+        }
+    }
 }());
