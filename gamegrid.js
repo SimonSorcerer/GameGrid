@@ -43,23 +43,37 @@ var gameGrid = (function () {
         return (gameGrid.getPiece(x, y).value < 0);
     }
 
-    this.highlightPiece = function(x, y) {
+    this.hoverPiece = function(x, y) {
         if (pieceExists(x, y)) {
             grid[x][y].hover = true;
         }
     }
 
-    this.pieceIsHighlighted = function(x, y) {
+    this.pieceIsHovered = function(x, y) {
         if (pieceExists(x, y)) {
             return (grid[x][y].hover);
         }
     }
 
-    this.unhilightAll = function() {
+    this.unhoverAll = function() {
         for (var i = 0; i < height; i++) {
             for (var j = 0; j < width; j++) {
                 grid[i][j].hover = false;
             }
+        }
+    }
+
+    this.highlightWin = function(x, y, dx, dy, count) {
+        for (var i = 0; i < count; i++) {
+            if (pieceExists(x + dx * i, y + dy * i)) {
+                grid[x + dx * i][y + dy * i].win = true;
+            }
+        }
+    }
+
+    this.pieceIsWinMove = function(x, y) {
+        if (pieceExists(x, y)) {
+            return (grid[x][y].win);
         }
     }
 

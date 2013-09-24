@@ -1,10 +1,14 @@
 gameGrid.renderer = (function (){
     var canvas;
-    var fieldSize = 50;
+    var fieldSize = 40;
 
     this.canvasInit = function(canvasId) {
         canvas = document.getElementById(canvasId);
         draw();
+
+        // add listener events
+        canvas.addEventListener('click', pieceClick, false);
+        canvas.addEventListener('mousemove', pieceHover, false);
     }
 
     var draw = function() {
@@ -23,8 +27,12 @@ gameGrid.renderer = (function (){
 
             for(var i = 0; i < grid.length; i++) {
                 for (var j = 0; j < grid[i].length; j++) {
-                    if (gameGrid.pieceIsHighlighted(i, j)) {
+                    if (gameGrid.pieceIsHovered(i, j)) {
                         drawHover(context, i, j, fieldSize);
+                    }
+
+                    if (gameGrid.pieceIsWinMove(i, j)) {
+                        drawWin(context, i, j, fieldSize);
                     }
 
                     if (!gameGrid.pieceIsEmpty(i, j)) {
@@ -32,18 +40,14 @@ gameGrid.renderer = (function (){
                     }
                 }
             }
-
-            // add click listener event
-            canvas.addEventListener('click', pieceClick, false);
-            canvas.addEventListener('mousemove', pieceHover, false);
         }
     };
 
     var pieceHover = function(e) {
         var pieceCoords = getPieceCoordinates(getCursorPosition(e));
 
-        gameGrid.unhilightAll();
-        gameGrid.highlightPiece(pieceCoords.x, pieceCoords.y);
+        gameGrid.unhoverAll();
+        gameGrid.hoverPiece(pieceCoords.x, pieceCoords.y);
 
         draw();
     }
@@ -57,10 +61,12 @@ gameGrid.renderer = (function (){
             gameGrid.nextPlayer();
         }
         else {
+            canvas.removeEventListener('click', pieceClick, false);
+            canvas.removeEventListener('mousemove', pieceHover, false);
+
             console.log("EndGame!");
         }
 
-        // redraw
         draw();
     }
 
@@ -114,6 +120,15 @@ gameGrid.renderer = (function (){
         context.closePath();
 
         context.fillStyle = "#dae6bc";
+        context.fill();
+    }
+
+    var drawWin = function(context, x, y, fieldSize) {
+        context.beginPath();
+        context.rect(x * fieldSize + 0.5, y * fieldSize + 0.5, fieldSize, fieldSize);
+        context.closePath();
+
+        context.fillStyle = "#e65372";
         context.fill();
     }
 

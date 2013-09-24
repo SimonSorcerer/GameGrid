@@ -4,7 +4,7 @@ gameGrid.tictactoe = (function () {
     this.isEndGame = function () {
         var dimensions = gameGrid.getDimensions();
         var grid = gameGrid.getGrid();
-        var winCount = 3;
+        var winCount = 5;
 
         // check if the dimensions are set
         if (dimensions.width && dimensions.height) {
@@ -49,6 +49,11 @@ gameGrid.tictactoe = (function () {
             }
         }
 
-        return (i == winCount);
+        if (i == winCount) {
+            gameGrid.highlightWin(x, y, dx, dy, winCount);
+            return true;
+        }
+
+        return false;
     }
 }());
