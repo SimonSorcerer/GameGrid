@@ -39,7 +39,9 @@ gameGrid.renderer = (function (){
         var pieceCoords = getPieceCoordinates(getCursorPosition(e));
 
         gameGrid.unhoverAll();
-        gameGrid.hoverPiece(pieceCoords.x, pieceCoords.y);
+        if (gameGrid.pieceIsEmpty(pieceCoords.x, pieceCoords.y)) {
+            gameGrid.hoverPiece(pieceCoords.x, pieceCoords.y);
+        }
 
         draw();
     }
@@ -47,7 +49,9 @@ gameGrid.renderer = (function (){
     var pieceClick = function(e) {
         var pieceCoords = getPieceCoordinates(getCursorPosition(e));
 
-        gameGrid.setPiece(pieceCoords.x, pieceCoords.y);
+        if (gameGrid.pieceIsEmpty(pieceCoords.x, pieceCoords.y)) {
+            gameGrid.setPiece(pieceCoords.x, pieceCoords.y);
+        }
 
         if (!gameGrid.isEndGame()) {
             gameGrid.nextPlayer();
