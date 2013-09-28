@@ -6,18 +6,18 @@ var gameGrid = (function () {
 
     // private methods
     var pieceExists = function(x, y) {
-        return (y >= 0 && y < grid.length && x >=0 && x < grid[y].length)
-    }
+        return (y >= 0 && y < grid.length && x >=0 && x < grid[y].length);
+    };
 
-    var playerExists = function(playerNumber) {
+    var playerExists = function (playerNumber) {
         return players.length > playerNumber;
-    }
+    };
 
     var setActivePlayer = function(index) {
         if (players.length > index) {
             activePlayer = index;
         }
-    }
+    };
 
     var initGrid = function(width, height) {
         var grid = [];
@@ -34,7 +34,7 @@ var gameGrid = (function () {
         }
 
         return grid;
-    }
+    };
 
     // public methods
     return {

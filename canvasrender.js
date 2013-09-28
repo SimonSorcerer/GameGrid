@@ -35,7 +35,7 @@ gameGrid.renderer = (function (){
         }
     };
 
-    var pieceHover = function(e) {
+    var pieceHover = function (e) {
         var pieceCoords = getPieceCoordinates(getCursorPosition(e));
 
         gameGrid.unhoverAll();
@@ -44,9 +44,9 @@ gameGrid.renderer = (function (){
         }
 
         draw();
-    }
+    };
 
-    var pieceClick = function(e) {
+    var pieceClick = function (e) {
         var pieceCoords = getPieceCoordinates(getCursorPosition(e));
 
         if (gameGrid.pieceIsEmpty(pieceCoords.x, pieceCoords.y)) {
@@ -64,9 +64,9 @@ gameGrid.renderer = (function (){
         }
 
         draw();
-    }
+    };
 
-    var getCursorPosition = function(e) {
+    var getCursorPosition = function (e) {
         var x, y;
 
         if (e.pageX != undefined && e.pageY != undefined) {
@@ -84,14 +84,14 @@ gameGrid.renderer = (function (){
             x: x,
             y: y
         };
-    }
+    };
 
-    var getPieceCoordinates = function(cursorCoords) {
+    var getPieceCoordinates = function (cursorCoords) {
         return {
             x: Math.floor(cursorCoords.x / fieldSize),
             y: Math.floor(cursorCoords.y / fieldSize)
         }
-    }
+    };
 
     var drawPiece = function(context, x, y, size, player) {
         var dx = (x * size) + (size/2);
@@ -108,7 +108,7 @@ gameGrid.renderer = (function (){
 
         context.fillStyle = getPlayerColor(player);
         context.fill();
-    }
+    };
 
     var drawHover = function(context, x, y, fieldSize) {
         context.beginPath();
@@ -117,7 +117,7 @@ gameGrid.renderer = (function (){
 
         context.fillStyle = "#dae6bc";
         context.fill();
-    }
+    };
 
     var drawWin = function(context, x, y, fieldSize) {
         context.beginPath();
@@ -126,7 +126,7 @@ gameGrid.renderer = (function (){
 
         context.fillStyle = "#e65372";
         context.fill();
-    }
+    };
 
     var getPlayerColor = function(playerNumber) {
         switch (playerNumber) {
@@ -137,7 +137,7 @@ gameGrid.renderer = (function (){
             case 4: return '#00f'; break;
             default: return '#0ff';
         }
-    }
+    };
 
     var setCanvasSize = function(canvas, width, height, fieldSize) {
         canvas.width = width * fieldSize + 1;
