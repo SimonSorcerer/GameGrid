@@ -46,7 +46,7 @@ gameGrid.renderer = (function (){
         draw();
     };
 
-    var pieceClick = function(e) {
+    var pieceClick = function (e) {
         var pieceCoords = getPieceCoordinates(getCursorPosition(e));
 
         if (gameGrid.pieceIsEmpty(pieceCoords.x, pieceCoords.y)) {

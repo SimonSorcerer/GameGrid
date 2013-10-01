@@ -9,7 +9,7 @@ var gameGrid = (function () {
         return (y >= 0 && y < grid.length && x >=0 && x < grid[y].length);
     };
 
-    var playerExists = function(playerNumber) {
+    var playerExists = function (playerNumber) {
         return players.length > playerNumber;
     };
 
