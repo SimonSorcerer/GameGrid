@@ -44,7 +44,7 @@ gameGrid.renderer = (function (){
         }
 
         draw();
-    }
+    };
 
     var pieceClick = function(e) {
         var pieceCoords = getPieceCoordinates(getCursorPosition(e));
@@ -64,12 +64,12 @@ gameGrid.renderer = (function (){
         }
 
         draw();
-    }
+    };
 
     var getCursorPosition = function(e) {
         var x, y;
 
-        if (e.pageX != undefined && e.pageY != undefined) {
+        if (e.pageX !== undefined && e.pageY !== undefined) {
             x = e.pageX;
             y = e.pageY;
         }
@@ -84,14 +84,14 @@ gameGrid.renderer = (function (){
             x: x,
             y: y
         };
-    }
+    };
 
     var getPieceCoordinates = function(cursorCoords) {
         return {
             x: Math.floor(cursorCoords.x / fieldSize),
             y: Math.floor(cursorCoords.y / fieldSize)
-        }
-    }
+        };
+    };
 
     var drawPiece = function(context, x, y, size, player) {
         var dx = (x * size) + (size/2);
@@ -108,7 +108,7 @@ gameGrid.renderer = (function (){
 
         context.fillStyle = getPlayerColor(player);
         context.fill();
-    }
+    };
 
     var drawHover = function(context, x, y, fieldSize) {
         context.beginPath();
@@ -117,7 +117,7 @@ gameGrid.renderer = (function (){
 
         context.fillStyle = "#dae6bc";
         context.fill();
-    }
+    };
 
     var drawWin = function(context, x, y, fieldSize) {
         context.beginPath();
@@ -126,18 +126,18 @@ gameGrid.renderer = (function (){
 
         context.fillStyle = "#e65372";
         context.fill();
-    }
+    };
 
     var getPlayerColor = function(playerNumber) {
         switch (playerNumber) {
-            case 0: return '#fff'; break;
-            case 1: return '#000'; break;
-            case 2: return '#f00'; break;
-            case 3: return '#0f0'; break;
-            case 4: return '#00f'; break;
+            case 0: return '#fff';
+            case 1: return '#000';
+            case 2: return '#f00';
+            case 3: return '#0f0';
+            case 4: return '#00f';
             default: return '#0ff';
         }
-    }
+    };
 
     var setCanvasSize = function(canvas, width, height, fieldSize) {
         canvas.width = width * fieldSize + 1;
@@ -172,5 +172,5 @@ gameGrid.renderer = (function (){
             canvas.addEventListener('click', pieceClick, false);
             canvas.addEventListener('mousemove', pieceHover, false);
         }
-    }
+    };
 }());

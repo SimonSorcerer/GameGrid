@@ -15,7 +15,7 @@ var tictactoe = (function () {
             checkPieceForWinPartial(grid, x, y, 1, -1, winCount) ||
             checkPieceForWinPartial(grid, x, y, 1, 1, winCount) ||
             checkPieceForWinPartial(grid, x, y, -1, 1, winCount);
-    }
+    };
 
     var checkPieceForWinPartial = function(grid, x, y, dx, dy, winCount) {
         var value = gameGrid.getPiece(x, y).value;
@@ -34,7 +34,7 @@ var tictactoe = (function () {
         }
 
         return false;
-    }
+    };
 
     var isEndGame = function () {
         var dimensions = gameGrid.getDimensions();
@@ -46,13 +46,13 @@ var tictactoe = (function () {
                 for (var j = 0; j < dimensions.width; j++) {
                     if (checkPieceForWin(grid, i, j, win)) {
                         return true;
-                    };
+                    }
                 }
             }
         }
 
         return false;
-    }
+    };
 
     // public methods
     return {
@@ -72,5 +72,5 @@ var tictactoe = (function () {
 
             gameGrid.renderer.canvasInit(canvasId, pieceSize);
         }
-    }
+    };
 }());
